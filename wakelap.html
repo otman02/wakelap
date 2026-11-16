@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wakelap</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="max-w-[1500px] m-auto  flex flex-col gap-20">
+
+     <header class="flex justify-between bg-green-100 rounded-md p-4">
+        <div class="flex items-center gap-5">
+           <div class="bg-yellow-500 rounded-md w-10 h-10 flex justify-center items-center text-2xl"><i class="fa-regular fa-circle-up  "></i></div> 
+            <div class="flex flex-col gap-1">
+                <p class="text-3xl font-bold">WakeLab</p>
+                <p>Des idées pour réveiller le groupe</p>
+            </div>
+        </div>
+
+        <div class="flex justify-center items-center gap-3">
+           
+                <p class="text-xl">Connecté en tant que</p>
+            
+            <div class="text-3xl"><i class="fa-solid fa-circle-user"></i></div>
+        </div>
+     </header>
+
+     <section class="bg-green-500 flex justify-between p-7 rounded-xl" >
+        <div class="flex flex-col  pt-50 gap-10">
+       <p class="bg-white text-2xl w-60 rounded-md"> . Réveil pédagogique</p>
+       <p class="text-4xl text-white font-bold">Une bonne idée pour <span class="text-4xl text-yellow-400 font-bold  ">cet après-midi ?</span> </p>
+       <p class="text-xl">Explorez les activités proposées par l’équipe ou partagez la vôtre en quelques minutes.</p>
+       <button class="bg-yellow-300 w-60 h-10 rounded-xl text-xl" id="ajoute">+ Proposer une activités</button>
+
+        </div>
+        <div class=" flex flex-col gap-3">
+            <img src="asset/game1.jpg" alt="icebreaking game " class="w-70 h-70 rounded-md opacity-70">
+            <img src="asset/game2.jpg" alt="icebreaking game" class="w-70 h-70 rounded-md opacity-70 ">
+        </div>
+       
+     </section>
+
+
+     <section class="bg-green-300 p-4 flex flex-col gap-10 rounded-xl">
+       <div class="flex justify-between">
+        <div>
+          <h1 class="text-2xl font-bold">Les idées du groupe</h1>
+          <p>3 activités à découvrir</p>
+       </div>
+        <div class="flex gap-5">
+             <input type="text" class="border rounded-xl w-70 bg-white  " placeholder="recherché une activité">
+             <select name="théme de activité" id="théme" class="rounded-xl bg-white">
+              <option value="" >tous les théme</option>
+              <option value="">Jeu</option>
+              <option value="">Apprentissage</option>
+              <option value="">Exercice</option>
+
+             </select>
+        </div>
+      
+     
+       </div>
+
+       <div class=" flex flex-col bg-white rounded-md justify-between w-100 h-100 p-6">
+          <div class="flex justify-between">
+            <p class="bg-orange-200 rounded-xl w-12 flex justify-center items-center text-xl">Jeu</p>
+            <p><i class="fa-regular fa-clock"></i>15min</p>
+          </div>
+          <h1 class="text-2xl font-bold">Le défi des mots interdits</h1>
+          <p>Faire deviner un concept étudié sans utiliser les trois mots les plus évidents. Une activité rapide pour réactiver les connaissances.</p>
+          <p class="font-bold">Objectif : Reformuler une notion et mobiliser le vocabulaire du cours.></p>
+
+          <div class="flex justify-between">
+            <p class="bg-green-200 rounded-xl">Camille Martin</p>
+           <div class="flex gap-5 ">
+            <div class="flex justify-center items-center bg-green-500 w-7 h-7 rounded-xl"><i class="fa-solid fa-pen   "></i></div>
+            <p class="flex justify-center items-center bg-red-500 w-7 h-7 rounded-xl"> <i class="fa-solid fa-trash-can   "></i></p>
+        </div> 
+          </div>
+
+
+       </div>
+
+
+     </section>
+
+
+     <div id="login" class="flex fixed inset-0 bg-black/50 items-center justify-center  z-50 p-6 flex-col gap-3">
+          <input type="text" name="full name " id="full_name" placeholder="Enter your name " class="bg-white rounded-xl p-6 max-w-lg w-full">
+
+           <button class="w-20 h-10 flex justify-center items-center rounded-xl bg-yellow-300" id="login-button">login</button>
+
+     </div>
+
+
+
+     <div id="ajoute-activité" class="flex fixed inset-0 bg-black/50 items-center hidden justify-center z-50 p-6 flex-col gap-3" id="form">
+    
+        <form action="" class="bg-white flex flex-col gap-10 w-200 h-180 p-8 rounded-xl relative" name="form-activite">
+           <p>NOUVELLE PROPOSITION</p>
+           <h1 class="text-2xl font-bold">partage une activité</h1>
+           <label for="titre">titre d'activite</label>
+           <input type="text" name="titre" id="titre" placeholder="entre le titre " class="border rounded-xl h-10">
+           <div class="flex justify-between">
+            <div>
+              <label for="théme-form">le théme </label>
+              <select name="théme" id="théme-form">
+              <option value="" >tous les théme</option>
+              <option value="">Jeu</option>
+              <option value="">Apprentissage</option>
+              <option value="">Exercice</option>
+
+           </select>
+            </div>
+             
+            <div>  
+                <label for="durée"> Durée estimeé</label>
+                <input type="text" name="duree" id="durée" class="border rounded-xl h-10" placeholder="dureé                         min">
+           </div>
+         
+           </div>
+           <label for="Objectif">objectif d'activité</label>
+           <input type="text" name="objectif" id="objectif" class="border rounded-xl h-10" placeholder="enter l'objectif">
+           <label for="discription"> c'est qoui le discription </label>
+           <input type="text" name="discription" id="discription" class="border rounded-xl h-10" placeholder="discription">
+
+           <div class="flex gap-10 absolute right-0 bottom-0  mb-4 mr-4">
+            <button class="border w-20 h-10 rounded-xl bg-red-600 text-white" id="annuler">annuler</button>
+           <button class="bg-black text-white w-30 h-10 rounded-xl">ajoute activité</button>
+           </div>
+
+        </form>
+
+
+     </div>
+      
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.21.1/axios.js" integrity="sha512-qPnrJ5rk/2kGUxG479UCkR577qsI0OW6ZJyIdP32KAoRqs8WhHz3kxOmOPyl+y+oIxnRk8BMtMH0VBdVcKXClw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="wakelap.js"></script>
+</body>
+</html>
