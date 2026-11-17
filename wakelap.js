@@ -17,6 +17,8 @@
         let activites=res.data
         console.log(activites)
         afficheractivites(activites)
+        rechercheractvité(activites)
+        filterge(activites)
     }
     catch(error){console.log(error)}
     
@@ -116,6 +118,8 @@ let activite_card = document.createElement("div")
 
 activite_card.classList="flex flex-col bg-white rounded-md justify-between w-100 h-100 p-6"
 
+activite_card.id=`${activite.id}`
+
 let théme_durée = document.createElement("div")
 
 théme_durée.classList="flex justify-between"
@@ -191,5 +195,46 @@ activites_continer.appendChild(activite_card)
 
    })
     
+}
+
+
+const recherche_input=document.getElementById("recherché_input")
+
+function rechercheractvité(activites){
+  
+    recherche_input.addEventListener("input",(event)=>{
+        let text=recherche_input.value.toLowerCase()
+
+        let result=activites.filter(activite=>activite.titre.toLowerCase().includes(text))
+         activites_continer.innerHTML=""
+         
+        afficheractivites(result)
+    })
+
+}
+
+
+
+
+
+const themes=document.getElementById("théme")
+
+function filterge(activites){
+
+    themes.addEventListener("change",(event)=>{
+        console.log(event.target.value)
+
+        let result=activites.filter(activite=>activite.theme.toLowerCase()===event.target.value.toLowerCase())  
+        if (event.target.value==="tous les théme"){
+            activites_continer.innerHTML=""
+              afficheractivites(activites)
+            }
+            else{
+                     activites_continer.innerHTML=""
+                     afficheractivites(result)
+            }
+        
+   
+     })
 }
 
