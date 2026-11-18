@@ -11,6 +11,7 @@
 
 
 
+
  async function activites() {
     try {
         const res = await axios.get("http://localhost:3000/api/activites")
@@ -19,6 +20,9 @@
         afficheractivites(activites)
         rechercheractvité(activites)
         filterge(activites)
+        ajoutedesactivites()
+        suprimeractivite(activites)
+        modifierfullcard(activites)
     }
     catch(error){console.log(error)}
     
@@ -167,8 +171,12 @@ let buttons= document.createElement("div")
 
 buttons.classList="flex gap-5"
 
+
+
+
 let modifier=document.createElement("button")
-modifier.classList="flex justify-center items-center bg-green-500 w-7 h-7 rounded-xl"
+modifier.classList=" modifier flex justify-center items-center bg-green-500 w-7 h-7 rounded-xl"
+modifier.dataset.id=`${activite.id}`
 
 let modifier_icon=document.createElement("i")
 modifier_icon.classList="fa-solid fa-pen"
@@ -176,13 +184,21 @@ modifier_icon.classList="fa-solid fa-pen"
 modifier.append(modifier_icon)
 
 
+
+
+
 let suprimer = document.createElement("button")
-suprimer.classList="flex justify-center items-center bg-red-500 w-7 h-7 rounded-xl"
+suprimer.classList="suprimer flex justify-center items-center bg-red-500 w-7 h-7 rounded-xl"
+suprimer.dataset.id=`${activite.id}`
 
 let suprimer_icon=document.createElement("i")
 suprimer_icon.classList="fa-solid fa-trash-can"
 
 suprimer.append(suprimer_icon)
+
+
+
+
 
 buttons.append(modifier,suprimer)
 
@@ -237,4 +253,261 @@ function filterge(activites){
    
      })
 }
+
+
+
+
+
+
+
+
+
+let form_activite = document.forms["form-activite"]
+
+
+   
+
+
+let button_ajouter = document.getElementById("button-ajouter")
+
+ function ajoutedesactivites(){
+
+button_ajouter.addEventListener("click",(event)=>{
+ event.preventDefault()
+
+ let valid=true
+    
+    if (/^[a-zA-Z0-9À-ÿ\s;:@\/.,'"!?()\-_#&%+=*]{5,100}$/.test(form_activite.titre.value)){
+      
+    }
+    else{
+        form_activite.titre.value=""
+        alert("votre titre est court ")
+        valid=false
+    }
+
+    if ( form_activite.theme.value==="tous les théme"){
+         
+        alert("obligatoire de chosire une theme")
+        valid=false
+    }
+
+    if (/^[a-zA-Z0-9À-ÿ\s;:@\/.,'"!?()\-_#&%+=*]{20,1000}$/.test(form_activite.discription.value)){
+     
+       
+    } 
+    else{
+
+        form_activite.discription.value=""
+        alert("votre description est court ")
+         valid=false
+    }
+
+    if ( form_activite.duree.value>=5 && form_activite.duree.value<=20){
+      
+      
+    }
+
+    else{
+         form_activite.duree.value=""
+           alert("le duree est invalide")
+            valid=false
+    }
+
+
+      
+    if(valid){
+         const new_activite={
+
+         "titre": form_activite.titre.value,
+         "theme": form_activite.theme.value,
+         "objectifs": form_activite.objectif.value,
+         "duree": Number(form_activite.duree.value),
+         "description": form_activite.discription.value,
+         "auteur": JSON.parse(localStorage.getItem("full name"))
+        
+        }
+        
+     axios.post("http://localhost:3000/api/activites",new_activite)
+     .then(res=>{
+      
+   console.log(res.data)
+   
+                          })
+     .catch(err=>{
+
+              console.log(err)
+
+           })
+
+    }
+
+})
+    
+}
+   
+
+
+
+
+
+
+
+
+function suprimeractivite(activites){
+
+    
+const  suprimer_buttons = document.querySelectorAll(".suprimer")
+
+// console.log(suprimer_buttons)
+    
+suprimer_buttons.forEach(button=>{
+
+    button.addEventListener("click",(event)=>{
+
+       let ID = Number(event.currentTarget.id)
+       let activite= activites.find(activite=>activite.id===ID)
+       let suprimer_id=Number(activite.id)
+
+
+        axios.delete(`http://localhost:3000/api/activites/${suprimer_id}`)
+     .then(res=>{
+      
+   console.log(res.data)
+   
+                          })
+     .catch(err=>{
+
+              console.log(err)
+
+           })
+          
+     
+    })
+})      
+
+}
+
+
+
+
+
+const  modifierpopup=document.getElementById("modifie-activité")
+
+const  modifie_form=document.getElementById("formmodifier-activite")
+
+const modifie_annuler =document.getElementById("annuler_modification")
+
+const modifier_button = document.getElementById("button-modifier")
+
+
+function modifierfullcard(activites){
+   let singleactivite=null
+    activites_continer.addEventListener("click",(event)=>{
+
+        let button= event.target.closest(".modifier")
+        if (!button)  
+        {return}
+
+     singleactivite= activites.find(activite=>String(activite.id)===button.dataset.id)
+       if(!singleactivite) {return}
+          modifie_form.modifiertitre.value=singleactivite.titre
+          modifie_form.modifiertheme.value=singleactivite.theme
+          modifie_form.modifierduree.value=singleactivite.duree
+          modifie_form.modifierobjectif.value=singleactivite.objectifs
+          modifie_form.modifierdiscription.value=singleactivite.description
+    
+        modifierpopup.classList.remove("hidden")
+    })
+    
+        modifier_button.addEventListener("click",(event)=>{
+
+            event.preventDefault()
+            let valid=true
+    
+    if (/^[a-zA-Z0-9À-ÿ\s;:@\/.,'"!?()\-_#&%+=*]{5,100}$/.test(modifie_form.modifiertitre.value)){
+      
+    }
+    else{
+        modifie_form.modifiertitre.value=""
+        alert("votre titre est court ")
+        valid=false
+    }
+
+    if ( modifie_form.modifiertheme.value==="tous les théme"){
+         
+        alert("obligatoire de chosire une theme")
+        valid=false
+    }
+
+    if (/^[a-zA-Z0-9À-ÿ\s;:@\/.,'"!?()\-_#&%+=*]{20,1000}$/.test(modifie_form.modifierdiscription.value)){
+     
+       
+    } 
+    else{
+
+        modifie_form.modifierdiscription.value=""
+        alert("votre description est court ")
+         valid=false
+    }
+
+    if (  modifie_form.modifierduree.value>=5 &&  modifie_form.modifierduree.value<=20){
+      
+      
+    }
+
+    else{
+          modifie_form.modifierduree.value=""
+           alert("le duree est invalide")
+            valid=false
+    }
+        
+
+    if (valid){
+             
+        const modification={
+
+         "titre": modifie_form.modifiertitre.value,
+         "theme": modifie_form.modifiertheme.value,
+         "objectifs": modifie_form.modifierobjectif.value,
+         "duree": Number(modifie_form.modifierduree.value),
+         "description": modifie_form.modifierdiscription.value,
+         "auteur": JSON.parse(localStorage.getItem("full name"))
+        
+        }
+
+        axios.put(`http://localhost:3000/api/activites/${singleactivite.id}`,modification)
+        .then(res=>{
+            console.log(res.data)
+        })
+        .catch(err=>{console.log(err.response.data)})
+        
+
+        modifierpopup.classList.add("hidden")
+
+
+
+    }
+           
+
+
+        })
+
+
+
+
+
+
+
+
+    modifie_annuler.addEventListener("click",(event)=>{
+        event.preventDefault()
+        modifierpopup.classList.add("hidden")
+    })
+}
+
+
+
+
+
 

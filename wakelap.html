@@ -34,6 +34,8 @@
       </div>
     </header>
 
+    <!-- ////////////////////////////////////////////////////////////////////////////// -->
+
     <section class="bg-green-500 flex justify-between p-7 rounded-xl">
       <div class="flex flex-col pt-50 gap-10">
         <p class="bg-white text-2xl w-60 rounded-md">. Réveil pédagogique</p>
@@ -64,6 +66,10 @@
         />
       </div>
     </section>
+
+
+
+    <!-- //////////////////////////////////////////////////////////// -->
 
     <section class="bg-green-300 p-4 flex flex-col gap-10 rounded-xl">
       <div class="flex justify-between">
@@ -118,6 +124,8 @@
       </ul>
     </section>
 
+    <!-- /////////////////////////////////////////////////////////////////////// -->
+
     <div
       id="login"
       class="flex fixed inset-0 bg-black/50 items-center justify-center z-50 p-6 flex-col gap-3"
@@ -138,13 +146,17 @@
       </button>
     </div>
 
+
+
+    <!-- ////////////////////////////// -->
+
     <div
       id="ajoute-activité"
       class="flex fixed inset-0 bg-black/50 items-center hidden justify-center z-50 p-6 flex-col gap-3"
       id="form"
     >
       <form
-        action=""
+        
         class="bg-white flex flex-col gap-10 w-200 h-180 p-8 rounded-xl relative"
         name="form-activite"
       >
@@ -161,7 +173,7 @@
         <div class="flex justify-between">
           <div>
             <label for="theme-form">le théme </label>
-            <select name="théme" id="theme-form">
+            <select name="theme" id="theme-form">
               <option value="tous les théme">tous les théme</option>
               <option value="jeu">jeu</option>
               <option value="Apprentissage">Apprentissage</option>
@@ -204,12 +216,98 @@
           >
             annuler
           </button>
-          <button class="bg-black text-white w-30 h-10 rounded-xl">
+          <button class="bg-black text-white w-30 h-10 rounded-xl" id="button-ajouter">
             ajoute activité
           </button>
         </div>
       </form>
     </div>
+
+
+    <!-- ////////////////////////////////////////////////////////////////////////// -->
+
+
+
+       <div
+      id="modifie-activité"
+      class="flex fixed inset-0 bg-black/50 items-center hidden justify-center z-50 p-6 flex-col gap-3"
+      id="form"
+    >
+      <form
+        
+        class="bg-white flex flex-col gap-10 w-200 h-180 p-8 rounded-xl relative"
+        name="formmodifier-activite"  id="formmodifier-activite"
+      >
+        <p>NOUVELLE PROPOSITION</p>
+        <h1 class="text-2xl font-bold">partage une activité</h1>
+        <label for="titre">titre d'activite</label>
+        <input
+          type="text"
+          name="modifiertitre"
+          id="titre"
+          placeholder="entre le titre "
+          class="border rounded-xl h-10"
+        />
+        <div class="flex justify-between">
+          <div>
+            <label for="theme-form">le théme </label>
+            <select name="modifiertheme" id="theme-form">
+              <option value="tous les théme">tous les théme</option>
+              <option value="jeu">jeu</option>
+              <option value="Apprentissage">Apprentissage</option>
+              <option value="Exercice">Exercice</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="durée"> Durée estimeé</label>
+            <input
+              type="text"
+              name="modifierduree"
+              id="durée"
+              class="border rounded-xl h-10"
+              placeholder="dureé                         min"
+            />
+          </div>
+        </div>
+        <label for="objectif">objectif d'activité</label>
+        <input
+          type="text"
+          name="modifierobjectif"
+          id="objectif"
+          class="border rounded-xl h-10"
+          placeholder="enter l'objectif"
+        />
+        <label for="discription"> c'est qoui le discription </label>
+        <input
+          type="text"
+          name="modifierdiscription"
+          id="discription"
+          class="border rounded-xl h-10"
+          placeholder="discription"
+        />
+
+        <div class="flex gap-10 absolute right-0 bottom-0 mb-4 mr-4">
+          <button
+            class="border w-20 h-10 rounded-xl bg-red-600 text-white"
+            id="annuler_modification"
+          >
+            annuler
+          </button>
+          <button class="bg-black text-white w-30 h-10 rounded-xl" id="button-modifier">
+            ajoute activité
+          </button>
+        </div>
+      </form>
+    </div>
+
+
+
+
+
+
+
+
 
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.21.1/axios.js"
