@@ -20,9 +20,10 @@
         afficheractivites(activites)
         rechercheractvité(activites)
         filterge(activites)
-        ajoutedesactivites()
+        ajoutedesactivites(activites)
         suprimeractivite(activites)
         modifierfullcard(activites)
+         
     }
     catch(error){console.log(error)}
     
@@ -49,6 +50,7 @@ checkingthelocalStorage()
 
 
 login_button.addEventListener("click",(event)=>{
+    event.preventDefault()
      const name = logi_name.value.trim()
     if (name.includes(" ")){
         localStorage.setItem("full name",JSON.stringify(name))
@@ -57,6 +59,11 @@ login_button.addEventListener("click",(event)=>{
     else alert("you must enter you full name ")
     
 })
+
+
+let user_name=document.getElementById("compte")
+
+user_name.innerText= JSON.parse(localStorage.getItem("full name"))
 
 
 
@@ -111,16 +118,30 @@ annuler.addEventListener("click",(event)=>{
 //           </div>
 
 
+
+function themecolor(activite){
+let color;
+
+    
+    if(activite.theme==="jeu"){color= "bg-blue-500"}
+    else if(activite.theme==="apprentissage"){color="bg-red-500"}
+    else if (activite.theme==="exercice"){color= "bg-green-500"}
+
+return color
+}
+
+
 const activites_continer=document.getElementById("activites-continer")
 
 function afficheractivites(activites){
-    
+     activites_continer.innerHTML=""
+     
    activites.forEach(activite=>{
 
       
 let activite_card = document.createElement("div")
 
-activite_card.classList="flex flex-col bg-white rounded-md justify-between w-100 h-100 p-6"
+activite_card.classList="flex flex-col bg-white rounded-md justify-between w-100 h-100 p-6 bg-yellow-300"
 
 activite_card.id=`${activite.id}`
 
@@ -130,10 +151,13 @@ théme_durée.classList="flex justify-between"
 
 let théme = document.createElement("p")
 
-théme.classList="bg-orange-200 rounded-xl p-2 flex justify-center items-center text-xl"
+théme.classList=` ${themecolor(activite)} text-white font-bold rounded-xl p-2 flex justify-center items-center text-xl`
 théme.textContent=`${activite.theme}`
 
 let durée= document.createElement("p")
+
+durée.classList="font-bold"
+
 
 
 let time_icon= document.createElement("i")
@@ -162,7 +186,7 @@ name_buttons.classList="flex justify-between"
 
 
 let name= document.createElement("p")
-name.classList="bg-green-200 rounded-xl p-2"
+name.classList="bg-green-200 rounded-xl p-2 font-bold"
 
 name.textContent=`${activite.auteur}`
 
@@ -209,7 +233,10 @@ activite_card.append(théme_durée,titre,discription,objectif,name_buttons)
 activites_continer.appendChild(activite_card)
 
 
+
    })
+
+   
     
 }
 
@@ -270,10 +297,11 @@ let form_activite = document.forms["form-activite"]
 
 let button_ajouter = document.getElementById("button-ajouter")
 
- function ajoutedesactivites(){
+ function ajoutedesactivites(activites){
 
 button_ajouter.addEventListener("click",(event)=>{
  event.preventDefault()
+console.log(555);
 
  let valid=true
     
@@ -317,6 +345,8 @@ button_ajouter.addEventListener("click",(event)=>{
 
       
     if(valid){
+        console.log(form_activite.theme.value);
+        
          const new_activite={
 
          "titre": form_activite.titre.value,
@@ -336,12 +366,23 @@ button_ajouter.addEventListener("click",(event)=>{
                           })
      .catch(err=>{
 
-              console.log(err)
+              console.log(err.response)
 
            })
+        
+           form_activité.classList.add("hidden")
+           
+            
+            
+   
+
+          
+         
+
+           
 
     }
-
+      
 })
     
 }
@@ -357,34 +398,60 @@ button_ajouter.addEventListener("click",(event)=>{
 function suprimeractivite(activites){
 
     
-const  suprimer_buttons = document.querySelectorAll(".suprimer")
+// const  suprimer_buttons = document.querySelectorAll(".suprimer")
 
-// console.log(suprimer_buttons)
-    
-suprimer_buttons.forEach(button=>{
+activites_continer.addEventListener("click",(event)=>{
 
-    button.addEventListener("click",(event)=>{
+     let button=event.target.closest(".suprimer")
+     console.log(button.dataset.id)
+     if(!button) {return}
+     let ID = Number(button.dataset.id)
+     let activite= activites.find(activite=>activite.id===ID)
+     let suprimer_id=Number(activite.id)
+     console.log(suprimer_id)
 
-       let ID = Number(event.currentTarget.id)
-       let activite= activites.find(activite=>activite.id===ID)
-       let suprimer_id=Number(activite.id)
-
-
-        axios.delete(`http://localhost:3000/api/activites/${suprimer_id}`)
+     axios.delete(`http://localhost:3000/api/activites/${suprimer_id}`)
      .then(res=>{
-      
-   console.log(res.data)
-   
-                          })
+
+        console.log(res.data)
+     })
      .catch(err=>{
+        console.log(err)
+     })
+ afficheractivites(activites)
+    
 
-              console.log(err)
 
-           })
+})
+
+// // console.log(suprimer_buttons)
+    
+// suprimer_buttons.forEach(button=>{
+
+//     button.addEventListener("click",(event)=>{
+
+//        let ID = Number(event.currentTarget.id)
+//        let activite= activites.find(activite=>activite.id===ID)
+//        let suprimer_id=Number(activite.id)
+
+
+//         axios.delete(`http://localhost:3000/api/activites/${suprimer_id}`)
+//      .then(res=>{
+      
+//    console.log(res.data)
+   
+//                           })
+//      .catch(err=>{
+
+//               console.log(err)
+
+//            })
+
+
           
      
-    })
-})      
+//     })
+// })      
 
 }
 
@@ -480,10 +547,14 @@ function modifierfullcard(activites){
         .then(res=>{
             console.log(res.data)
         })
-        .catch(err=>{console.log(err.response.data)})
+        .catch(err=>{console.log(err)})
         
 
         modifierpopup.classList.add("hidden")
+
+        ac
+
+        afficheractivites(activites)
 
 
 
@@ -506,6 +577,15 @@ function modifierfullcard(activites){
     })
 }
 
+
+
+
+
+function modifierduree(){
+
+
+
+}
 
 
 
