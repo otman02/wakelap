@@ -29,11 +29,18 @@ let logi_name = document.getElementById("full_name");
 let login_button = document.getElementById("login-button");
 let login_form = document.getElementById("login");
 
+let username= document.getElementById("user_name")
+
+
 function checkingthelocalStorage() {
   if (localStorage.length > 0) {
     login_form.classList.add("hidden");
   }
 }
+
+ username.addEventListener("click",event=>{
+    login_form.classList.remove("hidden")
+ })
 
 checkingthelocalStorage();
 
@@ -43,12 +50,21 @@ login_button.addEventListener("click", (event) => {
   if (name.includes(" ")) {
     localStorage.setItem("full name", JSON.stringify(name));
     login_form.classList.add("hidden");
+
+             Swal.fire({
+                  title: "valid name   ",
+                  text: "votre name est enregistrer ",
+                  icon: "success",
+          });
+    
   } else {
-    Swal.fire({
-      title: "invalid name   ",
-      text: "votre name obliger de deux mote ",
-      icon: "success",
-    });
+        
+       Swal.fire({
+                  title: "invalid name   ",
+                  text: "votre name est obliger de deux mote  ",
+                  icon: "error",
+          });
+   
   }
 });
 
