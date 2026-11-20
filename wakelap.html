@@ -12,6 +12,8 @@
       referrerpolicy="no-referrer"
     />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body class="max-w-[1500px] m-auto flex flex-col gap-20 md:gap-20 px-4 py-4 bg-yellow-50">
     <header class="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center bg-green-600 rounded-md p-4">
@@ -230,12 +232,12 @@
 
        <div
       id="modifie-activité"
-      class="flex fixed inset-0 bg-black/50 items-center hidden justify-center z-50 p-6 flex-col gap-3"
+      class="flex fixed inset-0 bg-black/50 items-center hidden justify-center z-50 p-4 sm:p-6"
       id="form"
     >
       <form
         
-        class="bg-white flex flex-col gap-10 w-200 h-180 p-8 rounded-xl relative"
+        class="bg-white flex flex-col gap-4 w-full max-w-2xl max-h-[90vh] overflow-y-auto p-4 sm:p-8 rounded-xl"
         name="formmodifier-activite"  id="formmodifier-activite"
       >
         <p>NOUVELLE PROPOSITION</p>
@@ -246,26 +248,26 @@
           name="modifiertitre"
           id="titre"
           placeholder="entre le titre "
-          class="border rounded-xl h-10"
+          class="border rounded-xl h-10 w-full px-3"
         />
-        <div class="flex justify-between">
+        <div class="flex flex-col gap-4 sm:flex-row sm:justify-between">
           <div>
             <label for="theme-form">le théme </label>
-            <select name="modifiertheme" id="theme-form">
+            <select name="modifiertheme" id="theme-form"  class="border rounded-xl h-10 px-2">
               <option value="tous les théme">tous les théme</option>
               <option value="jeu">jeu</option>
-              <option value="Apprentissage">Apprentissage</option>
-              <option value="Exercice">Exercice</option>
+              <option value="apprentissage">Apprentissage</option>
+              <option value="exercice">Exercice</option>
             </select>
           </div>
 
-          <div>
+          <div class="flex flex-col gap-1">
             <label for="durée"> Durée estimeé</label>
             <input
               type="text"
               name="modifierduree"
               id="durée"
-              class="border rounded-xl h-10"
+              class="border rounded-xl h-10 px-3"
               placeholder="dureé                         min"
             />
           </div>
@@ -275,7 +277,7 @@
           type="text"
           name="modifierobjectif"
           id="objectif"
-          class="border rounded-xl h-10"
+          class="border rounded-xl h-10 w-full px-3"
           placeholder="enter l'objectif"
         />
         <label for="discription"> c'est qoui le discription </label>
@@ -283,18 +285,18 @@
           type="text"
           name="modifierdiscription"
           id="discription"
-          class="border rounded-xl h-10"
+          class="border rounded-xl h-10 w-full px-3"
           placeholder="discription"
         />
 
-        <div class="flex gap-10 absolute right-0 bottom-0 mb-4 mr-4">
+        <div class="flex justify-end gap-3 mt-4">
           <button
-            class="border w-20 h-10 rounded-xl bg-red-600 text-white"
+            class="border px-4 h-10 rounded-xl bg-red-600 text-white"
             id="annuler_modification"
           >
             annuler
           </button>
-          <button class="bg-black text-white w-30 h-10 rounded-xl" id="button-modifier">
+          <button class="bg-black text-white px-4 h-10 rounded-xl" id="button-modifier">
             ajoute activité
           </button>
         </div>
@@ -308,25 +310,29 @@
 
      
     <div
-      id="duree_modifier_input"
-      class="flex fixed inset-0 bg-black/50 items-center justify-center z-50 p-6 flex-col gap-3 hidden"
+      id="duree_modifier"
+      class="flex fixed inset-0 bg-black/50 items-center justify-center z-50 p-6 flex-col gap-3 hidden "
     >
-       <button class="font-bold">X</button>
-       <h1>entre the new duree</h1>
+
+    <div class="bg-white  w-100 h-90 flex flex-col gap-7 rounded-md flex justify-around">
+       <button class="font-bold bg-red-500 w-7 rounded-md m-6" id="close">X</button>
+       <h1 class="font-bold">entre the new duree :</h1>
       <input
         type="text"
         name="duree "
-        id="inputduree"
-        placeholder="Enter the new duree "
-        class="bg-white rounded-xl p-6 max-w-lg w-full"
+        id="input_duree_modifier"
+        placeholder="Enter the new duree                                        min "
+        class="bg-white rounded-xl p-6 max-w-lg w-full border"
       />
 
       <button
-        class="w-20 h-10 flex justify-center items-center rounded-xl bg-yellow-300"
-        id="modifier-button"
+        class="w-20 h-10 flex justify-center items-center rounded-xl bg-yellow-300 ml-40 "
+        id="modifierpartiel_button"
       >
         modifier
       </button>
+    </div>
+      
     </div>
 
 
